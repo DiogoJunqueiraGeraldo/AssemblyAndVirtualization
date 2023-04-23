@@ -11,6 +11,7 @@ public:
 	bool HasFilePath();
 	bool FileExists();
 	bool IsValidExtension();
+	std::string GetFilePath();
 
 private:
 	std::vector<std::string> args;

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandLine.h" />
+    <ClInclude Include="InstructionsLoader.h" />
     <ClInclude Include="Funct.h" />
     <ClInclude Include="Immediate.h" />
     <ClInclude Include="ImmediateEncoding.h" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandLine.cpp" />
+    <ClCompile Include="InstructionsLoader.cpp" />
     <ClCompile Include="Funct.cpp" />
     <ClCompile Include="Immediate.cpp" />
     <ClCompile Include="ImmediateEncoding.cpp" />
@@ -46,6 +48,9 @@
     <ClCompile Include="Shamt.cpp" />
     <ClCompile Include="Symbols.cpp" />
     <ClCompile Include="TargetAddress.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mips.asm" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

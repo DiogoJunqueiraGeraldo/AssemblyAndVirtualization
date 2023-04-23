@@ -26,3 +26,7 @@ bool CommandLine::IsValidExtension() {
 		this->filePath.size() - suffix.size(), suffix.size(), suffix
 	);
 }
+
+std::string CommandLine::GetFilePath() {
+	return this->filePath;
+}

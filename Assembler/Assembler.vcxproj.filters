@@ -5,14 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source Files\Interface">
       <UniqueIdentifier>{5421f85c-0abd-4ed7-8748-6588240dc24e}</UniqueIdentifier>
     </Filter>
@@ -31,43 +23,52 @@
     <Filter Include="Source Files\Instructions\Symbols">
       <UniqueIdentifier>{cee82587-efb5-4e59-a643-e8a7c8f67de5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{318b4dc1-0136-4a9a-a254-b58374ef46de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\Resources">
+      <UniqueIdentifier>{9ea00e83-eca7-4f2d-ab55-ad4f46fefabd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Instruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RegisterEncoding.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImmediateEncoding.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JumpEncoding.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandLine.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TargetAddress.h">
+      <Filter>Source Files\Instructions\Operands</Filter>
     </ClInclude>
     <ClInclude Include="Symbols.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Operation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Funct.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Instructions\Symbols</Filter>
     </ClInclude>
     <ClInclude Include="Shamt.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="RegisterEncoding.h">
+      <Filter>Source Files\Instructions\Encodings</Filter>
     </ClInclude>
     <ClInclude Include="Register.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Instructions\Operands</Filter>
     </ClInclude>
-    <ClInclude Include="TargetAddress.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Operation.h">
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpEncoding.h">
+      <Filter>Source Files\Instructions\Encodings</Filter>
+    </ClInclude>
+    <ClInclude Include="Instruction.h">
+      <Filter>Source Files\Instructions\Encodings</Filter>
+    </ClInclude>
+    <ClInclude Include="ImmediateEncoding.h">
+      <Filter>Source Files\Instructions\Encodings</Filter>
     </ClInclude>
     <ClInclude Include="Immediate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="Funct.h">
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandLine.h">
+      <Filter>Source Files\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructionsLoader.h">
+      <Filter>Source Files\LexicalAnalyzer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,5 +111,13 @@
     <ClCompile Include="Immediate.cpp">
       <Filter>Source Files\Instructions\Operands</Filter>
     </ClCompile>
+    <ClCompile Include="InstructionsLoader.cpp">
+      <Filter>Source Files\LexicalAnalyzer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mips.asm">
+      <Filter>Tests\Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>
