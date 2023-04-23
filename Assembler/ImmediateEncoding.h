@@ -3,10 +3,10 @@
 #include "Register.h"
 #include "Immediate.h"
 
-class ImmediateEncoding : Instruction
+class ImmediateEncoding : public Instruction
 {
-	Register Rs;
-	Register Rt;
-	Immediate Immediate;
+	Register m_Rs;
+	Register m_Rt;
+	Immediate m_Immediate;
 };
 

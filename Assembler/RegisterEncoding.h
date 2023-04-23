@@ -4,12 +4,12 @@
 #include "Shamt.h"
 #include "Funct.h"
 
-class RegisterEncoding: Instruction
+class RegisterEncoding: public Instruction
 {
-	Register Rs;
-	Register Rt;
-	Register Rd;
-	Shamt Shamt;
-	Funct Funct;
+	Register m_Rs;
+	Register m_Rt;
+	Register m_Rd;
+	Shamt m_Shamt;
+	Funct m_Funct;
 };
 

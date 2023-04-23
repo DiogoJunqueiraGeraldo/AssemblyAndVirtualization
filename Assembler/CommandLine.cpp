@@ -2,31 +2,31 @@
 
 CommandLine::CommandLine(int argc, char* argv[]) {
 	std::vector<std::string> vec(argv, argc + argv);
-	this->args = vec;
+	m_Args = vec;
 
 	if (vec.size() > 1) {
-		this->filePath = vec[1];
-		this->hasFilePath = true;
+		m_FilePath = vec[1];
+		m_HasFilePath = true;
 	}
 }
 
 bool CommandLine::HasFilePath() {
-	return this->hasFilePath;
+	return m_HasFilePath;
 }
 
 bool CommandLine::FileExists() {
 	struct stat buffer;
-	return (stat(this->filePath.c_str(), &buffer) == 0);
+	return (stat(m_FilePath.c_str(), &buffer) == 0);
 }
 
 bool CommandLine::IsValidExtension() {
 	std::string suffix = ".asm";
 
-	return this->filePath.size() >= suffix.size() && 0 == this->filePath.compare(
-		this->filePath.size() - suffix.size(), suffix.size(), suffix
+	return m_FilePath.size() >= suffix.size() && 0 == m_FilePath.compare(
+		m_FilePath.size() - suffix.size(), suffix.size(), suffix
 	);
 }
 
 std::string CommandLine::GetFilePath() {
-	return this->filePath;
+	return m_FilePath;
 }

@@ -3,6 +3,6 @@
 
 class Instruction
 {
-	Operation OpCode;
+	Operation m_OpCode;
 };
 

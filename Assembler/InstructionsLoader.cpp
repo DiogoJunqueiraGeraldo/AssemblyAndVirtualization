@@ -32,14 +32,14 @@ std::string sanitizeRawLine(std::string line) {
 }
 
 std::vector<std::string> InstructionsLoader::GetRawInstructions() {
-	return this->rawInstructions;
+	return m_RawInstructions;
 }
 
 void InstructionsLoader::LoadInstructions() {
-	std::ifstream source(this->filePath);
+	std::ifstream source(m_FilePath);
 
 	if (!source) {
-		printf("(error) couldn't open %s\n", this->filePath.c_str());
+		printf("(error) couldn't open %s\n", m_FilePath.c_str());
 		exit(-1);
 	}
 
@@ -50,11 +50,11 @@ void InstructionsLoader::LoadInstructions() {
 		if (!isEmptyLine(line) && !startsWithAComment(line)) {
 			std::string instruction = line.substr(0, line.find("#"));
 
-			this->rawInstructions.push_back(instruction);
+			m_RawInstructions.push_back(instruction);
 		}
 	}
 }
 
 InstructionsLoader::InstructionsLoader(std::string filePath) {
-	this->filePath = filePath;
+	m_FilePath = filePath;
 }

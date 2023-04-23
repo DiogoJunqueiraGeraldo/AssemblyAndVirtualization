@@ -12,7 +12,7 @@ public:
 	std::vector<std::string> GetRawInstructions();
 
 private:
-	std::string filePath;
-	std::vector<std::string> rawInstructions;
+	std::string m_FilePath;
+	std::vector<std::string> m_RawInstructions;
 };
 

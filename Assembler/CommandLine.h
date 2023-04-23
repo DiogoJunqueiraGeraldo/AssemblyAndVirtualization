@@ -14,8 +14,8 @@ public:
 	std::string GetFilePath();
 
 private:
-	std::vector<std::string> args;
+	std::vector<std::string> m_Args;
 
-	bool hasFilePath;
-	std::string filePath;
+	bool m_HasFilePath;
+	std::string m_FilePath;
 };

@@ -2,8 +2,8 @@
 #include "Instruction.h"
 #include "TargetAddress.h"
 
-class JumpEncoding : Instruction
+class JumpEncoding : public Instruction
 {
-	TargetAddress TargetAddress;
+	TargetAddress m_TargetAddress;
 };
 
