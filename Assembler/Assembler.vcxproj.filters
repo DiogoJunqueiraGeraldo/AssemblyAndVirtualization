@@ -13,10 +13,102 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Interface">
+      <UniqueIdentifier>{5421f85c-0abd-4ed7-8748-6588240dc24e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LexicalAnalyzer">
+      <UniqueIdentifier>{99cad377-921a-44e9-8e90-589a306afc7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Instructions">
+      <UniqueIdentifier>{8505b71b-bdc0-4f55-a2e2-beae02e01fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Instructions\Encodings">
+      <UniqueIdentifier>{9ad2cb63-40fd-4e11-a585-9bdc9a98790c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Instructions\Operands">
+      <UniqueIdentifier>{c49c5371-a8b5-40c1-899b-fd71d48e275f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Instructions\Symbols">
+      <UniqueIdentifier>{cee82587-efb5-4e59-a643-e8a7c8f67de5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Assembler.cpp">
+    <ClInclude Include="Instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RegisterEncoding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImmediateEncoding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpEncoding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Symbols.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Operation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Funct.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shamt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Register.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetAddress.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Immediate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RegisterEncoding.cpp">
+      <Filter>Source Files\Instructions\Encodings</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpEncoding.cpp">
+      <Filter>Source Files\Instructions\Encodings</Filter>
+    </ClCompile>
+    <ClCompile Include="Instruction.cpp">
+      <Filter>Source Files\Instructions\Encodings</Filter>
+    </ClCompile>
+    <ClCompile Include="ImmediateEncoding.cpp">
+      <Filter>Source Files\Instructions\Encodings</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandLine.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Symbols.cpp">
+      <Filter>Source Files\Instructions\Symbols</Filter>
+    </ClCompile>
+    <ClCompile Include="Operation.cpp">
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="Funct.cpp">
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="Shamt.cpp">
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="Register.cpp">
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetAddress.cpp">
+      <Filter>Source Files\Instructions\Operands</Filter>
+    </ClCompile>
+    <ClCompile Include="Immediate.cpp">
+      <Filter>Source Files\Instructions\Operands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
