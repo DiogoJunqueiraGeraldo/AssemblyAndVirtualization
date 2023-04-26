@@ -23,3 +23,7 @@ after that I don't really know, right now my levels of expectation are really lo
 # Should you look at this as a reference project to build your own assembler?
 
 No
+
+# Could this repository be named better?
+
+Yes
