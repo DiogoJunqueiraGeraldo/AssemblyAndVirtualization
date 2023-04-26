@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "ArgumentsHandler.h"
-#include "../LexicalAnalyzer/SourceLoader.h"
+#include "../LexicalAnalyzer/Tokenizer.h"
 
 namespace Assembler {
 	class Application

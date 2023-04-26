@@ -1,31 +1,28 @@
 #include "ArgumentsHandler.h"
 
 Assembler::ArgumentsHandler::ArgumentsHandler(int argc, char* argv[])
-    : m_Args(0), m_FilePath(""), m_TargetPath("./")
+    : m_Args(nullptr), m_FilePath(""), m_TargetPath("./")
 {
 	std::vector<std::string> vec(argv, argc + argv);
 
 	switch (vec.size()) {
 		case 3: {
-			m_TargetPath = vec[2];
+			std::string targetPath = vec[2];
+			m_TargetPath = targetPath;
 		}
 		case 2: {
-			m_FilePath = vec[1];
+			std::string filePath = vec[1];
+			m_FilePath = filePath;
 		}
 		default: {
-			m_Args = vec;
+			m_Args = &vec;
 		}
 	}
 }
 
-std::string Assembler::ArgumentsHandler::GetFilePath()
+Assembler::ArgumentsHandler::~ArgumentsHandler()
 {
-	return m_FilePath;
-}
-
-std::string Assembler::ArgumentsHandler::GetTargetPath()
-{
-	return m_TargetPath;
+	delete m_Args;
 }
 
 bool Assembler::ArgumentsHandler::VerifyArguments()

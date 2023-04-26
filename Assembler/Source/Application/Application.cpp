@@ -12,18 +12,17 @@ Assembler::Application::~Application() {
 
 void Assembler::Application::Assemble()
 {
-	auto shouldExit = !m_ArgumentsHandler->VerifyArguments();
-	if (shouldExit) {
+	if (!m_ArgumentsHandler->VerifyArguments()) {
 		exit(EXIT_FAILURE);
 	}
 
-	auto sl = LexicalAnalyzer::SourceLoader(m_ArgumentsHandler->GetFilePath());
+	std::string sourcePath = m_ArgumentsHandler->GetFilePath();
 
-	if (!sl.LoadInstructions()) {
-		exit(EXIT_FAILURE);
-	}
+	auto tokenizer = LexicalAnalyzer::Tokenizer(sourcePath);
 
-	auto instructions = sl.GetInstructions();
+	tokenizer.Tokenize();
+
+	auto tokens = tokenizer.GetTokens();
 
 	return;
 }

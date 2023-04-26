@@ -24,27 +24,60 @@
     <ClCompile Include="Source\Application\ArgumentsHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\LexicalAnalyzer\SourceLoader.cpp">
+    <ClCompile Include="Source\LexicalAnalyzer\Tokenizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Token.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Operation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Register.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\IntegerLiteral.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Section.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Syscall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Instructions\Instructions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Instructions\Operands.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Instructions\Encodings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Application\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Application\ArgumentsHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\LexicalAnalyzer\SourceLoader.h">
+    <ClInclude Include="Source\LexicalAnalyzer\Tokenizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Operation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Register.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\IntegerLiteral.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Section.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Syscall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

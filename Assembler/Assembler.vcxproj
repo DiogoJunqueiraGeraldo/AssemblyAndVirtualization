@@ -19,18 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\LexicalAnalyzer\SourceLoader.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Section.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\IntegerLiteral.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Label.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Register.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Operation.cpp" />
     <ClCompile Include="Source\Application\ArgumentsHandler.cpp" />
     <ClCompile Include="Source\Application\Application.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokenizer.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Token.cpp" />
+    <ClCompile Include="Source\LexicalAnalyzer\Tokens\Syscall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\LexicalAnalyzer\SourceLoader.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Section.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\IntegerLiteral.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Label.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Register.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Operation.h" />
     <ClInclude Include="Source\Application\ArgumentsHandler.h" />
     <ClInclude Include="Source\Application\Application.h" />
-    <ClInclude Include="Source\Instructions\Encodings.h" />
-    <ClInclude Include="Source\Instructions\Instructions.h" />
-    <ClInclude Include="Source\Instructions\Operands.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokenizer.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Token.h" />
+    <ClInclude Include="Source\LexicalAnalyzer\Tokens\Syscall.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -85,20 +96,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)</OutDir>
-    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)</OutDir>
-    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)</OutDir>
-    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)</OutDir>
-    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
