@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[])
 {
-    auto app = Assembler::Application(argc, argv);
+    Assembler::Application app = Assembler::Application(argc, argv);
 
     app.Assemble();
 

@@ -156,17 +156,17 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 		else if (token[0] == '$') {
 			int idx = -1;
 
-			auto matches = new std::string[32][3]{
+			std::string matches[32][2] = {
 				{ "$0", "$r0" },
 				{ "$1", "$at" },
 				{ "$2", "$v0" },
 				{ "$3", "$v1" },
 				{ "$4", "$a0" },
-				{ "$5", "$a1"  },
-				{ "$6", "$a2"  },
-				{ "$7", "$a3"  },
-				{ "$8", "$t0"  },
-				{ "$9", "$t1"  },
+				{ "$5", "$a1" },
+				{ "$6", "$a2" },
+				{ "$7", "$a3" },
+				{ "$8", "$t0" },
+				{ "$9", "$t1" },
 				{ "$10", "$t2" },
 				{ "$11", "$t3" },
 				{ "$12", "$t4" },
@@ -196,8 +196,8 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 			}
 			else {
 				for (int i = 0; i < 32; i++) {
-					auto fm = matches[i][0];
-					auto sm = matches[i][1];
+					std::string fm = matches[i][0];
+					std::string sm = matches[i][1];
 
 					if (fm == token || sm == token) {
 						idx = i;
@@ -206,7 +206,14 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 				}
 			}
 
-			m_Tokens.push_back(Tokens::Register(idx));
+			if (idx != -1) {
+				m_Tokens.push_back(Tokens::Register(idx));
+			}
+			else {
+				printf("[err] unexpected register reference %s", token.c_str());
+				exit(EXIT_FAILURE);
+			}
+			
 		}
 		else {
 			bool isIntegerLiteral = true;

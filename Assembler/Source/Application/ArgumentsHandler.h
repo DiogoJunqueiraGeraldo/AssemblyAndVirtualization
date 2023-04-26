@@ -8,9 +8,8 @@ namespace Assembler {
 	{
 	public:
 		ArgumentsHandler(int argc, char* argv[]);
-		~ArgumentsHandler();
 
-		bool VerifyArguments();
+		void VerifyArguments();
 
 		std::string GetFilePath() { return m_FilePath; }
 		std::string GetTargetPath() { return m_TargetPath; }
@@ -20,7 +19,7 @@ namespace Assembler {
 		bool FileExists();
 		bool IsValidExtension();
 
-		std::vector<std::string>* m_Args;
+		std::vector<std::string> m_Args;
 		std::string m_FilePath;
 		std::string m_TargetPath;
 	};

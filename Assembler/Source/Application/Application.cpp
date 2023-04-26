@@ -1,28 +1,22 @@
 #include "Application.h"
 
 Assembler::Application::Application(int argc, char* argv[])
-	: m_ArgumentsHandler(nullptr)
+	: m_ArgumentsHandler(0, nullptr)
 {
-	m_ArgumentsHandler = new ArgumentsHandler(argc, argv);
-}
-
-Assembler::Application::~Application() {
-	delete m_ArgumentsHandler;
+	m_ArgumentsHandler = ArgumentsHandler(argc, argv);
 }
 
 void Assembler::Application::Assemble()
 {
-	if (!m_ArgumentsHandler->VerifyArguments()) {
-		exit(EXIT_FAILURE);
-	}
+	m_ArgumentsHandler.VerifyArguments();
 
-	std::string sourcePath = m_ArgumentsHandler->GetFilePath();
-
-	auto tokenizer = LexicalAnalyzer::Tokenizer(sourcePath);
+	LexicalAnalyzer::Tokenizer tokenizer = LexicalAnalyzer::Tokenizer(
+		m_ArgumentsHandler.GetFilePath()
+	);
 
 	tokenizer.Tokenize();
 
-	auto tokens = tokenizer.GetTokens();
+	std::vector<Tokens::Token> tokens = tokenizer.GetTokens();
 
 	return;
 }

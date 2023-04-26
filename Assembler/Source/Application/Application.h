@@ -11,12 +11,11 @@ namespace Assembler {
 	{
 	public:
 		Application(int argc, char* argv[]);
-		~Application();
 
 		void Assemble();
 
 	private:
-		ArgumentsHandler* m_ArgumentsHandler;
+		ArgumentsHandler m_ArgumentsHandler;
 	};
 }
 

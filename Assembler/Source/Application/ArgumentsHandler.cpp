@@ -1,7 +1,7 @@
 #include "ArgumentsHandler.h"
 
 Assembler::ArgumentsHandler::ArgumentsHandler(int argc, char* argv[])
-    : m_Args(nullptr), m_FilePath(""), m_TargetPath("./")
+    : m_FilePath(""), m_TargetPath("./")
 {
 	std::vector<std::string> vec(argv, argc + argv);
 
@@ -15,34 +15,27 @@ Assembler::ArgumentsHandler::ArgumentsHandler(int argc, char* argv[])
 			m_FilePath = filePath;
 		}
 		default: {
-			m_Args = &vec;
+			m_Args = vec;
 		}
 	}
 }
 
-Assembler::ArgumentsHandler::~ArgumentsHandler()
-{
-	delete m_Args;
-}
-
-bool Assembler::ArgumentsHandler::VerifyArguments()
+void Assembler::ArgumentsHandler::VerifyArguments()
 {
 	if (!HasFilePath()) {
 		puts("[err] first argument (target file) is required");
-		return false;
+		exit(EXIT_FAILURE);
 	}
 
 	if (!FileExists()) {
 		puts("[err] first argument should be a (valid) file path");
-		return false;
+		exit(EXIT_FAILURE);
 	}
 
 	if (!IsValidExtension()) {
 		puts("[err] first argument should be a assembly (.asm) file");
-		return false;
+		exit(EXIT_FAILURE);
 	}
-
-	return true;
 }
 
 bool Assembler::ArgumentsHandler::HasFilePath()
