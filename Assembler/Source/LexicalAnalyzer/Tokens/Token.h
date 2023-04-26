@@ -3,6 +3,5 @@
 namespace Tokens {
 	class Token
 	{
-		virtual void imVirtual();
 	};
 }
