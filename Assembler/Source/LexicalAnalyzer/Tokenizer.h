@@ -19,7 +19,7 @@ namespace LexicalAnalyzer {
 	{
 	public:
 		Tokenizer(std::string sourcePath) : m_SourcePath(sourcePath) {};
-		std::vector<Tokens::Token> Tokenize();
+		std::vector<Tokens::Token*> Tokenize();
 
 	private:
 		void LoadFile();
@@ -31,7 +31,7 @@ namespace LexicalAnalyzer {
 		void HandleMultiOperand(std::string instruction);
 
 	private:
-		std::vector<Tokens::Token> m_Tokens;
+		std::vector<Tokens::Token*> m_Tokens;
 		std::vector<std::string> m_Lines;
 		std::vector<std::string> m_Instructions;
 		std::string m_SourcePath;

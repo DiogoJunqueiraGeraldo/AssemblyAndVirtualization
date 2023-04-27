@@ -107,10 +107,10 @@ void LexicalAnalyzer::Tokenizer::HandleSingleOperand(std::string instruction)
 	// section
 	if (instruction[0] == '.') {
 		if (instruction == ".data") {
-			m_Tokens.push_back(Tokens::Section(Tokens::DATA));
+			m_Tokens.push_back(new Tokens::Section(Tokens::DATA));
 		}
 		else if (instruction == ".text") {
-			m_Tokens.push_back(Tokens::Section(Tokens::TEXT));
+			m_Tokens.push_back(new Tokens::Section(Tokens::TEXT));
 		}
 		else {
 			printf("[err] unexpected section declaration %s", instruction.c_str());
@@ -119,10 +119,10 @@ void LexicalAnalyzer::Tokenizer::HandleSingleOperand(std::string instruction)
 	}
 	else if(instruction[instruction.size() - 1] == ':') {
 		std::string label = instruction.substr(0, instruction.size() - 1);
-		m_Tokens.push_back(Tokens::LabelDeclaration(label));
+		m_Tokens.push_back(new Tokens::LabelDeclaration(label));
 	}
 	else if (instruction == "syscall") {
-		m_Tokens.push_back(Tokens::Syscall());
+		m_Tokens.push_back(new Tokens::Syscall());
 	}
 	else {
 		printf("[err] unexpected operand %s check for (missing parameters) or (misspelling)", instruction.c_str());
@@ -145,10 +145,10 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 
 		if (firstOperand) {
 			if (token[0] == '.' && token == ".globl") {
-				m_Tokens.push_back(Tokens::Section(Tokens::GLOBL));
+				m_Tokens.push_back(new Tokens::Section(Tokens::GLOBL));
 			}
 			else {
-				m_Tokens.push_back(Tokens::Operation(token));
+				m_Tokens.push_back(new Tokens::Operation(token));
 			}
 
 			firstOperand = false;
@@ -207,7 +207,7 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 			}
 
 			if (idx != -1) {
-				m_Tokens.push_back(Tokens::Register(idx));
+				m_Tokens.push_back(new Tokens::Register(idx));
 			}
 			else {
 				printf("[err] unexpected register reference %s", token.c_str());
@@ -226,16 +226,16 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 			}
 
 			if (isIntegerLiteral) {
-				m_Tokens.push_back(Tokens::IntegerLiteral(std::stoi(token)));
+				m_Tokens.push_back(new Tokens::IntegerLiteral(std::stoi(token)));
 			}
 			else {
-				m_Tokens.push_back(Tokens::LabelReference(token));
+				m_Tokens.push_back(new Tokens::LabelReference(token));
 			}
 		}
 	}
 }
 
-std::vector<Tokens::Token> LexicalAnalyzer::Tokenizer::Tokenize()
+std::vector<Tokens::Token*> LexicalAnalyzer::Tokenizer::Tokenize()
 {
 	LoadFile();
 	HandleWhiteSpacesAndComments();
