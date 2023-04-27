@@ -104,134 +104,224 @@ bool LexicalAnalyzer::Tokenizer::IsMultipleOperandInstruction(std::string instru
 
 void LexicalAnalyzer::Tokenizer::HandleSingleOperand(std::string instruction)
 {
-	// section
-	if (instruction[0] == '.') {
-		if (instruction == ".data") {
-			m_Tokens.push_back(new Tokens::Section(Tokens::DATA));
-		}
-		else if (instruction == ".text") {
-			m_Tokens.push_back(new Tokens::Section(Tokens::TEXT));
-		}
-		else {
-			printf("[err] unexpected section declaration %s", instruction.c_str());
-			exit(EXIT_FAILURE);
-		}
-	}
-	else if(instruction[instruction.size() - 1] == ':') {
-		std::string label = instruction.substr(0, instruction.size() - 1);
-		m_Tokens.push_back(new Tokens::LabelDeclaration(label));
-	}
-	else if (instruction == "syscall") {
-		m_Tokens.push_back(new Tokens::Syscall());
-	}
-	else {
-		printf("[err] unexpected operand %s check for (missing parameters) or (misspelling)", instruction.c_str());
-		exit(EXIT_FAILURE);
-	}
+	PushSection(instruction)
+	|| PushLabelDeclaration(instruction)
+	|| PushSyscall(instruction)
+	|| ExitFailureFor(instruction);
 }
 
 void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 {
-	bool firstOperand = true;
-	bool finished = false;
-	while (!finished)
+	bool* fpFlag = new bool(true);
+	bool* fFlag = new bool(false);
+
+	while (!*fFlag)
 	{
-		std::string token = instruction.substr(0, instruction.find(' '));
-		instruction = instruction.substr(instruction.find(' ') + 1, instruction.size());
+		std::string token = GetNextToken(instruction);
+		instruction = SliceFirstToken(instruction);
+		CheckFinishInstruction(fFlag, instruction, token);
 
-		if (instruction == token) {
-			finished = true;
+		HandleFirstOperand(fpFlag, token)
+		|| HandleNotFirstOperand(token);
+	}
+}
+
+bool LexicalAnalyzer::Tokenizer::PushSection(std::string token)
+{
+	if (token[0] != '.') {
+		return false;
+	}
+
+	if (token == ".data") {
+		m_Tokens.push_back(new Tokens::Section(Tokens::DATA));
+	}
+	else if (token == ".text") {
+		m_Tokens.push_back(new Tokens::Section(Tokens::TEXT));
+	}
+	else {
+		printf("[err] unexpected section declaration %s", token.c_str());
+		exit(EXIT_FAILURE);
+	}
+
+	return true;
+}
+
+bool LexicalAnalyzer::Tokenizer::PushLabelDeclaration(std::string token)
+{
+	if (!token[token.size() - 1] == ':') {
+		return false;
+	}
+
+	std::string label = token.substr(0, token.size() - 1);
+	m_Tokens.push_back(new Tokens::LabelDeclaration(label));
+	
+	return true;
+}
+
+bool LexicalAnalyzer::Tokenizer::PushSyscall(std::string token)
+{
+	if (token != "syscall") {
+		return false;
+	}
+
+	m_Tokens.push_back(new Tokens::Syscall());
+
+	return true;
+}
+
+bool LexicalAnalyzer::Tokenizer::ExitFailureFor(std::string token)
+{
+	printf("[err] unexpected operand %s check for (missing parameters) or (misspelling)", token.c_str());
+	exit(EXIT_FAILURE);
+	return false;
+}
+
+bool LexicalAnalyzer::Tokenizer::HandleFirstOperand(bool* fpFlag, std::string token)
+{
+	if (*fpFlag) {
+		PushGlobalSection(token)
+			|| PushOperation(token);
+		
+		*fpFlag = false;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool LexicalAnalyzer::Tokenizer::HandleNotFirstOperand(std::string token)
+{
+	return PushRegister(token)
+		|| PushIntegerLiteral(token)
+		|| PushLabelReference(token);
+}
+
+bool LexicalAnalyzer::Tokenizer::PushGlobalSection(std::string token)
+{
+	if (token != ".globl") {
+		return false;
+	}
+	
+	m_Tokens.push_back(new Tokens::Section(Tokens::GLOBL));
+
+	return true;
+}
+
+bool LexicalAnalyzer::Tokenizer::PushOperation(std::string token)
+{
+	m_Tokens.push_back(new Tokens::Operation(token));
+	return true;
+}
+
+bool LexicalAnalyzer::Tokenizer::PushRegister(std::string token)
+{
+	if (token[0] != '$') {
+		return false;
+	}
+	
+	int idx = -1;
+
+	std::string matches[32][2] = {
+		{ "$0", "$r0" },
+		{ "$1", "$at" },
+		{ "$2", "$v0" },
+		{ "$3", "$v1" },
+		{ "$4", "$a0" },
+		{ "$5", "$a1" },
+		{ "$6", "$a2" },
+		{ "$7", "$a3" },
+		{ "$8", "$t0" },
+		{ "$9", "$t1" },
+		{ "$10", "$t2" },
+		{ "$11", "$t3" },
+		{ "$12", "$t4" },
+		{ "$13", "$t5" },
+		{ "$14", "$t6" },
+		{ "$15", "$t7" },
+		{ "$16", "$s0" },
+		{ "$17", "$s1" },
+		{ "$18", "$s2" },
+		{ "$19", "$s3" },
+		{ "$20", "$s4" },
+		{ "$21", "$s5" },
+		{ "$22", "$s6" },
+		{ "$23", "$s7" },
+		{ "$24", "$t8" },
+		{ "$25", "$t9" },
+		{ "$26", "$k0" },
+		{ "$27", "$k1" },
+		{ "$28", "$gp" },
+		{ "$29", "$sp" },
+		{ "$30", "$fp" },
+		{ "$31", "$ra" },
+	};
+
+	if (token == "$zero") {
+		idx = 0;
+	}
+	else {
+		for (int i = 0; i < 32; i++) {
+			std::string fm = matches[i][0];
+			std::string sm = matches[i][1];
+
+			if (fm == token || sm == token) {
+				idx = i;
+				break;
+			}
 		}
+	}
 
-		if (firstOperand) {
-			if (token[0] == '.' && token == ".globl") {
-				m_Tokens.push_back(new Tokens::Section(Tokens::GLOBL));
-			}
-			else {
-				m_Tokens.push_back(new Tokens::Operation(token));
-			}
+	if (idx != -1) {
+		m_Tokens.push_back(new Tokens::Register(idx));
+	}
+	else {
+		printf("[err] unexpected register reference %s", token.c_str());
+		exit(EXIT_FAILURE);
+	}
 
-			firstOperand = false;
+	return true;
+}
+
+bool LexicalAnalyzer::Tokenizer::PushIntegerLiteral(std::string token)
+{
+	bool isIntegerLiteral = true;
+
+	for (int i = 0; i < token.size(); i++) {
+		if (!isdigit(token[i])) {
+			isIntegerLiteral = false;
+			break;
 		}
-		else if (token[0] == '$') {
-			int idx = -1;
+	}
 
-			std::string matches[32][2] = {
-				{ "$0", "$r0" },
-				{ "$1", "$at" },
-				{ "$2", "$v0" },
-				{ "$3", "$v1" },
-				{ "$4", "$a0" },
-				{ "$5", "$a1" },
-				{ "$6", "$a2" },
-				{ "$7", "$a3" },
-				{ "$8", "$t0" },
-				{ "$9", "$t1" },
-				{ "$10", "$t2" },
-				{ "$11", "$t3" },
-				{ "$12", "$t4" },
-				{ "$13", "$t5" },
-				{ "$14", "$t6" },
-				{ "$15", "$t7" },
-				{ "$16", "$s0" },
-				{ "$17", "$s1" },
-				{ "$18", "$s2" },
-				{ "$19", "$s3" },
-				{ "$20", "$s4" },
-				{ "$21", "$s5" },
-				{ "$22", "$s6" },
-				{ "$23", "$s7" },
-				{ "$24", "$t8" },
-				{ "$25", "$t9" },
-				{ "$26", "$k0" },
-				{ "$27", "$k1" },
-				{ "$28", "$gp" },
-				{ "$29", "$sp" },
-				{ "$30", "$fp" },
-				{ "$31", "$ra" },
-			};
+	if (isIntegerLiteral) {
+		m_Tokens.push_back(new Tokens::IntegerLiteral(std::stoi(token)));
+		return true;
+	}
 
-			if (token == "$zero") {
-				idx = 0;
-			}
-			else {
-				for (int i = 0; i < 32; i++) {
-					std::string fm = matches[i][0];
-					std::string sm = matches[i][1];
+	return false;
+}
 
-					if (fm == token || sm == token) {
-						idx = i;
-						break;
-					}
-				}
-			}
+bool LexicalAnalyzer::Tokenizer::PushLabelReference(std::string token)
+{
+	m_Tokens.push_back(new Tokens::LabelReference(token));
+	return true;
+}
 
-			if (idx != -1) {
-				m_Tokens.push_back(new Tokens::Register(idx));
-			}
-			else {
-				printf("[err] unexpected register reference %s", token.c_str());
-				exit(EXIT_FAILURE);
-			}
-			
-		}
-		else {
-			bool isIntegerLiteral = true;
+std::string LexicalAnalyzer::Tokenizer::GetNextToken(std::string instruction)
+{
+	return instruction.substr(0, instruction.find(' '));
+}
 
-			for (int i = 0; i < token.size(); i++) {
-				if (!isdigit(token[i])) {
-					isIntegerLiteral = false;
-					break;
-				}
-			}
+std::string LexicalAnalyzer::Tokenizer::SliceFirstToken(std::string instruction)
+{
+	return instruction.substr(instruction.find(' ') + 1, instruction.size());
+}
 
-			if (isIntegerLiteral) {
-				m_Tokens.push_back(new Tokens::IntegerLiteral(std::stoi(token)));
-			}
-			else {
-				m_Tokens.push_back(new Tokens::LabelReference(token));
-			}
-		}
+void LexicalAnalyzer::Tokenizer::CheckFinishInstruction(bool* fFlag, std::string instruction, std::string token)
+{
+	if (instruction == token) {
+		*fFlag = true;
 	}
 }
 
