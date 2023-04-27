@@ -97,11 +97,6 @@ void LexicalAnalyzer::Tokenizer::LoadTokens()
 	}
 }
 
-bool LexicalAnalyzer::Tokenizer::IsMultipleOperandInstruction(std::string instruction)
-{
-	return instruction.find(' ') < instruction.size();
-}
-
 void LexicalAnalyzer::Tokenizer::HandleSingleOperand(std::string instruction)
 {
 	PushSection(instruction)
@@ -113,18 +108,21 @@ void LexicalAnalyzer::Tokenizer::HandleSingleOperand(std::string instruction)
 void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 {
 	bool* fpFlag = new bool(true);
-	bool* fFlag = new bool(false);
+	std::string token = "";
 
-	while (!*fFlag)
+	while (!IsFinished(fpFlag, instruction, token))
 	{
-		std::string token = GetNextToken(instruction);
+		token = GetNextToken(instruction);
 		instruction = SliceFirstToken(instruction);
 
 		HandleFirstOperand(fpFlag, token)
 		|| HandleNotFirstOperand(token);
-
-		CheckFinishInstruction(fFlag, instruction, token);
 	}
+}
+
+bool LexicalAnalyzer::Tokenizer::IsMultipleOperandInstruction(std::string instruction)
+{
+	return instruction.find(' ') < instruction.size();
 }
 
 bool LexicalAnalyzer::Tokenizer::PushSection(std::string token)
@@ -319,11 +317,9 @@ std::string LexicalAnalyzer::Tokenizer::SliceFirstToken(std::string instruction)
 	return instruction.substr(instruction.find(' ') + 1, instruction.size());
 }
 
-void LexicalAnalyzer::Tokenizer::CheckFinishInstruction(bool* fFlag, std::string instruction, std::string token)
+bool LexicalAnalyzer::Tokenizer::IsFinished(bool* fpFlag, std::string instruction, std::string token)
 {
-	if (instruction == token) {
-		*fFlag = true;
-	}
+	return !*fpFlag && instruction == token;
 }
 
 std::vector<Tokens::Token*> LexicalAnalyzer::Tokenizer::Tokenize()

@@ -46,7 +46,7 @@ namespace LexicalAnalyzer {
 
 		std::string GetNextToken(std::string instruction);
 		std::string SliceFirstToken(std::string instruction);
-		void CheckFinishInstruction(bool* fFlag, std::string instruction, std::string token);
+		bool IsFinished(bool* fpFlag, std::string instruction, std::string token);
 
 	private:
 		std::vector<Tokens::Token*> m_Tokens;
