@@ -119,10 +119,11 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 	{
 		std::string token = GetNextToken(instruction);
 		instruction = SliceFirstToken(instruction);
-		CheckFinishInstruction(fFlag, instruction, token);
 
 		HandleFirstOperand(fpFlag, token)
 		|| HandleNotFirstOperand(token);
+
+		CheckFinishInstruction(fFlag, instruction, token);
 	}
 }
 
