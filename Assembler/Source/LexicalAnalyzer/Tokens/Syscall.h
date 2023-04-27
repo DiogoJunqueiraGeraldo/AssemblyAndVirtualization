@@ -5,6 +5,8 @@ namespace Tokens {
     class Syscall :
         public Token
     {
+    public:
+        std::string GetTokenType() override { return "Syscall"; }
     };
 }
 

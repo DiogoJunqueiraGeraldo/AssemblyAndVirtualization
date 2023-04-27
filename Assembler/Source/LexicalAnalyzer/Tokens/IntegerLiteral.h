@@ -9,6 +9,8 @@ namespace Tokens {
     public:
         IntegerLiteral(int value) : m_Value(value) {}
         int GetValue() { return m_Value; }
+
+        std::string GetTokenType() override { return "IntegerLiteral"; }
     private:
         int m_Value;
     };

@@ -9,6 +9,7 @@ namespace Tokens {
         public:
             Label(std::string name) : m_Name(name) {}
             std::string GetName() { return m_Name; }
+            
         protected:
             std::string m_Name;
     };
@@ -18,11 +19,15 @@ namespace Tokens {
     {
     public:
         LabelDeclaration(std::string name): Label(name) {}
+
+        std::string GetTokenType() override { return "LabelDeclaration"; }
     };
 
     class LabelReference : public Label {
     public:
         LabelReference(std::string name) : Label(name) {};
+
+        std::string GetTokenType() override { return "LabelReference"; }
     };
 }
 

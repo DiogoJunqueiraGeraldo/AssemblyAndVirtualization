@@ -15,6 +15,8 @@ namespace Tokens {
     public:
         Section(AsmSection section) : m_Section(section) {}
         AsmSection GetSection() { return m_Section; }
+
+        std::string GetTokenType() override { return "Section"; }
     private:
         AsmSection m_Section;
     };
