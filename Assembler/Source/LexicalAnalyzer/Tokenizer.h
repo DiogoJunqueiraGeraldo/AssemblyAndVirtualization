@@ -19,8 +19,7 @@ namespace LexicalAnalyzer {
 	{
 	public:
 		Tokenizer(std::string sourcePath) : m_SourcePath(sourcePath) {};
-		std::vector<Tokens::Token> GetTokens() { return m_Tokens; }
-		void Tokenize();
+		std::vector<Tokens::Token> Tokenize();
 
 	private:
 		void LoadFile();

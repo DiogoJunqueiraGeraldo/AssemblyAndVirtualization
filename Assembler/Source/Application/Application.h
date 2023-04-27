@@ -10,7 +10,7 @@ namespace Assembler {
 	class Application
 	{
 	public:
-		Application(int argc, char* argv[]);
+		Application(int argc, char* argv[]) : m_ArgumentsHandler(argc, argv) {};
 
 		void Assemble();
 

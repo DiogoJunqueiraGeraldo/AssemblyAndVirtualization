@@ -235,9 +235,11 @@ void LexicalAnalyzer::Tokenizer::HandleMultiOperand(std::string instruction)
 	}
 }
 
-void LexicalAnalyzer::Tokenizer::Tokenize()
+std::vector<Tokens::Token> LexicalAnalyzer::Tokenizer::Tokenize()
 {
 	LoadFile();
 	HandleWhiteSpacesAndComments();
 	LoadTokens();
+
+	return m_Tokens;
 }
